@@ -1,6 +1,12 @@
 module RailsPages
   module Routes
-    # @param page [RailsPages::Page] Page to mount
+    # @param page [Array<RailsPages::Page>] Page to mount.
+    # @param to [String] Controller to use. Action name cannot be specified.
+    def mount_pages(pages, to:)
+      pages.each { |page| mount_page page, to: to }
+    end
+
+    # @param page [RailsPages::Page] Page to mount.
     # @param to [String] Controller to use. Action name cannot be specified.
     def mount_page(page, to:)
       # This is the main route. It includes a route helper based on the page ID.

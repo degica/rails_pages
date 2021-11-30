@@ -1,0 +1,15 @@
+<div id='page' class='page'>
+  <%# Vue mountpoint %>
+</div>
+
+<%= javascript_tag do %>
+  <%# Value loaded by JS %>
+  window.initialData = <%= raw @data.to_json %>;
+  window.railsFlash = <%= raw flash.to_h.to_json %>;
+  window.pageID = <%= raw @page.id.to_json %>;
+<% end %>
+
+<div id='page-modal-backdrop' class='page closed'>
+  <div id='page-modal' onclick='event.stopPropagation()'>
+  </div>
+</div>

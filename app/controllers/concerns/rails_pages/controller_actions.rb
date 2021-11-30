@@ -6,6 +6,8 @@ module RailsPages
     included do
       before_action :fetch_page
       before_action :run_page_hooks
+
+      helper ::RailsPages::ApplicationHelper
     end
 
     def page

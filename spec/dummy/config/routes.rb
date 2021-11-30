@@ -1,3 +1,5 @@
+require 'rails_pages/routes'
+
 Rails.application.routes.draw do
-  mount RailsPages::Engine => "/rails_pages"
+  mount_pages RailsPages::Page.all, to: 'pages'
 end
