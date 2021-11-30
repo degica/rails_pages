@@ -89,6 +89,16 @@ describe RailsPages::Page::Loader do
       expect(Kernel).to have_received(:load).with(page3_def.to_s)
     end
 
+    it 'assigns page IDs correctly even for driver pages' do
+      allow(Rails.application.config).to receive(:paths).and_return(
+        'app' => ['app', 'drivers/test/app']
+      )
+
+      result = described_class.load_pages
+
+      expect(result.keys).to include 'nest/page3'
+    end
+
     it 'raises an error when called twice outside of development env' do
       result = described_class.load_pages
       expect(result.size).to eq 2
