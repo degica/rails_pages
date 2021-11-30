@@ -59,6 +59,10 @@ module RailsPages
       end
     end
 
+    def self.[](regex)
+      where { |page| page.id =~ regex }
+    end
+
     def self.define(route, **metadata, &block)
       Loader.last_definition = [route, block, metadata]
     end

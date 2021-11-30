@@ -102,6 +102,22 @@ describe RailsPages::Page, type: :model do
     end
   end
 
+  describe '.[]' do
+    it 'lets me search by regex' do
+      page1 = described_class.new('test/one', 'my/route', proc {  }, one: 'two')
+      page2 = described_class.new('wrong/two', 'my/route', proc {  }, one: 'two')
+      page3 = described_class.new('test/three', 'my/route', proc { }, one: 'three')
+
+      RailsPages::Page::Loader.page_blocks = {
+        'test/one' => page1,
+        'wrong/two' => page2,
+        'test/three' => page3
+      }
+
+      expect(described_class[/^test/]).to match_array [page1, page3]
+    end
+  end
+
   describe '.find_by' do
     it 'pulls 1 page by metadata from RailsPages::Page::Loader.page_blocks' do
       page1 = described_class.new('test/one', 'my/route', proc {  }, one: 'two')
