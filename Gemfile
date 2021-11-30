@@ -10,6 +10,7 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
   gem 'fakefs', require: 'fakefs/safe'
 end
 

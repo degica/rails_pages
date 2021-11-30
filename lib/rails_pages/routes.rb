@@ -20,6 +20,14 @@ module RailsPages
       # BTW, all of the above actions are defined in the controller concern
       # RailsPages::ControllerActions
     end
+
+    # This mounts a default route that can be used for all pages.
+    # It's mainly useful for test environments.
+    def mount_page_fallback(path, to:)
+      get path, to: "#{to}#page"
+      get File.join(path, 'action'), to: "#{to}#page_get"
+      post File.join(path, 'action'), to: "#{to}#page_post"
+    end
   end
 end
 
