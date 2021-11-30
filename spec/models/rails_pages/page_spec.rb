@@ -85,6 +85,21 @@ describe RailsPages::Page, type: :model do
       expect(described_class.where(one: 'three')).to match_array [page3]
       expect(described_class.where(one: 'none')).to match_array []
     end
+
+    it 'lets me pass a block' do
+      page1 = described_class.new('test/one', 'my/route', proc {  })
+      page2 = described_class.new('out/two', 'my/route', proc {  })
+      page3 = described_class.new('test/three', 'my/route', proc { })
+
+      RailsPages::Page::Loader.page_blocks = {
+        'test/one' => page1,
+        'out/two' => page2,
+        'test/three' => page3
+      }
+
+      expect(described_class.where { |p| p.id.start_with?('test') })
+        .to match_array [page1, page3]
+    end
   end
 
   describe '.find_by' do
