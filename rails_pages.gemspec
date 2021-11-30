@@ -43,6 +43,4 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', '>= 6.0'
   spec.add_dependency 'webpacker'
-
-  spec.add_development_dependency 'rspec-rails'
 end
