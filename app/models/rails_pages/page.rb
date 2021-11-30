@@ -55,7 +55,7 @@ module RailsPages
     def self.where(query = {})
       all.select do |page|
         (block_given? ? yield(page) : true) &&
-        query.keys.all? { |key| page.metadata[key] == query[key] }
+          query.keys.all? { |key| page.metadata[key] == query[key] }
       end
     end
 
