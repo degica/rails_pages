@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "sourceMap": true,
+    "target": "es6",
+    "strict": true,
+    "noImplicitAny": false
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -9,4 +9,8 @@
 /spec/dummy/storage/
 /spec/dummy/tmp/
 /spec/dummy/node_modules
+/js/node_modules
+/js/*.js
+/js/*.js.map
+/js/*.d.ts
 .byebug_history

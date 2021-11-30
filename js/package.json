@@ -1,0 +1,23 @@
+{
+  "name": "rails-pages",
+  "version": "0.1.0",
+  "description": "The JS half of the rails_pages ruby gem",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/degica/rails_pages.git"
+  },
+  "author": "Nigel Baillie <nigelbaillie@hey.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/degica/rails_pages/issues"
+  },
+  "homepage": "https://github.com/degica/rails_pages#readme",
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
