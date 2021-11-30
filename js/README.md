@@ -7,3 +7,9 @@ There is 1 file: index.ts. You build it with
 ```bash
 $ npm run buid
 ```
+
+You can publish it with
+
+```bash
+$ npm publish
+```
