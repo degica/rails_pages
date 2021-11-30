@@ -1,0 +1,45 @@
+AllCops:
+  Exclude:
+    - spec/dummy_*/**/*
+    - spec/dummy-*/**/*
+    - vendor/**/*
+    - node_modules/**/*
+  TargetRubyVersion: 2.7
+  SuggestExtensions: false
+  NewCops: enable
+
+Style/BlockComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/RescueModifier:
+  Exclude:
+    - spec/spec_helper.rb
+
+Style/NestedParenthesizedCalls:
+  Exclude:
+    - spec/**/*
+
+Style/ClassVars:
+  Exclude:
+    # rubocop doesn't seem to know what's going on here.
+    - lib/rails_drivers/extensions.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - lib/tasks/*.rake
+    - '*.gemspec'
+
+Style/MixinUsage:
+  Exclude:
+    - lib/tasks/*.rake
+
+Metrics/AbcSize:
+  Exclude:
+    - lib/generators/**/*
+
+Metrics/LineLength:
+  Max: 130
