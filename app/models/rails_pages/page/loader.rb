@@ -6,8 +6,9 @@ module RailsPages
     #
     # rubocop:disable Style/GlobalVars
     #
-    # We allow global vars here because this module enforces that pages are
-    # only loaded once outside of development.
+    # We allow global vars here because this module needs to enforce that pages
+    # are only loaded once outside of development. Loading pages multiple times
+    # in test, for example, can cause bugs with code coverage.
     module Loader
       extend self
 
