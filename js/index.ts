@@ -1,3 +1,27 @@
+import { reactive } from 'vue';
+
+//
+// This error type can be read reactively in Vue templates.
+//
+//   <template>
+//     <div class='error'>{{ $t(error.i18n) }}</div>
+//   </template>
+//
+//   <script>
+//     import { post, error } from 'rails-pages';
+//
+//     export default {
+//       mounted() { post('wrong', { fail: true }); }
+//     };
+//   </script>
+//
+//
+export type PageError = { i18n: string|null, lastResponse: Response|null };
+export const error: PageError = reactive({
+  i18n: null,
+  lastResponse: null
+});
+
 //
 // This lets you run server-side code wrapped in a 'get' ruby block.
 //
@@ -51,8 +75,7 @@ export async function get(
   });
 
   if (!response.ok) {
-    console.error(response);
-    throw 'Request failed...';
+    requestFailed(response);
   }
 
   return response.json();
@@ -123,9 +146,29 @@ export async function post(
   });
 
   if (!response.ok) {
-    console.error(response);
-    throw 'Request failed...';
+    requestFailed(response);
   }
 
   return response.json();
+}
+
+//
+// Internal function for handling HTTP errors.
+//
+// To keep the API simple, we throw when we receive anything other than
+// HTTP 200.
+//
+// To handle such errors, the developer can import the 'error' object above,
+// and use its reactive properties to easily render error messages as they
+// come up.
+//
+function requestFailed(response: Response) {
+  const errorType = response.statusText
+    .toLowerCase()
+    .replace(/\s+/g, '_');
+
+  error.lastResponse = response;
+  error.i18n = `error.${errorType}`;
+
+  throw error;
 }

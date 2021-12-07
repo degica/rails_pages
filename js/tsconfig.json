@@ -6,6 +6,7 @@
     "sourceMap": true,
     "target": "es6",
     "strict": true,
+    "moduleResolution": "Node",
     "noImplicitAny": false
   },
   "exclude": [
