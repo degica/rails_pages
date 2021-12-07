@@ -1,3 +1,32 @@
+//
+// This lets you run server-side code wrapped in a 'get' ruby block.
+//
+//   # page.rb
+//   RailsPages::Page.define '/mypage' do
+//     data {{ test: 'test' }}
+//
+//     get 'more_info' do
+//       render json: { hello: 'world' }
+//     end
+//   end
+//
+//   <!-- page.vue -->
+//   <template>
+//     <pre>{{ JSON.stringify(myinfo) }}</pre>
+//   </template>
+//
+//   <script>
+//     import { get } from 'rails-pages';
+//
+//     export default {
+//       data: () => ({ myinfo: null }),
+//
+//       mounted() {
+//         this.myinfo = await get('more_info');
+//       }
+//     };
+//   </script>
+//
 export async function get(
   action: string,
   params?: Record<string, string>
@@ -29,6 +58,37 @@ export async function get(
   return response.json();
 }
 
+//
+// This lets you run server-side code wrapped in a 'post' ruby block.
+// It also handles CSRF protection.
+//
+//   # page.rb
+//   RailsPages::Page.define '/mypage' do
+//     data {{ test: 'test' }}
+//
+//     post 'create_comment' do
+//       comment = Comment.create!(content: params[:content])
+//       render json: comment
+//     end
+//   end
+//
+//   <!-- page.vue -->
+//   <template>
+//     <pre v-if="comment">{{ comment.content }}</pre>
+//   </template>
+//
+//   <script>
+//     import { post } from 'rails-pages';
+//
+//     export default {
+//       data: () => ({ comment: null }),
+//
+//       mounted() {
+//         this.comment = await post('create_comment', { content: 'hello' });
+//       }
+//     };
+//   </script>
+//
 export async function post(
   action: string,
   params: Object
