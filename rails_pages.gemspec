@@ -42,5 +42,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'rails', '>= 6.0'
-  spec.add_dependency 'webpacker', '~> 5.2.1'
+  spec.add_development_dependency 'webpacker', '~> 5.2.1'
 end

@@ -3,7 +3,6 @@ PATH
   specs:
     rails_pages (0.1.0)
       rails (>= 6.0)
-      webpacker (~> 5.2.1)
 
 GEM
   remote: https://rubygems.org/
