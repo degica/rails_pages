@@ -30,7 +30,7 @@ The page's definition exists inside of `page_name/page.rb`.
 ```ruby
 # app/pages/my_page/page.rb
 Page.define '/actual/url/path/here' do
-  authorize { true } # <- always required
+  authorize { true } # <- an "authorize" block must always be provided but the authorization itself can be done on the pages/page controller
 
   data do
     { value: 'hello!' } # <- can use in page.vue
