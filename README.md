@@ -46,11 +46,21 @@ The frontend portion is just a regular VueJS component.
 <!-- pages/my_page/page.vue -->
 <template>
   <h1>{{ value }}</h1>
+  <p>{{ dogicaCoin }}</p>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
-  data() { return { value: '' } } // <- comes directly from page.rb!
+  data() {
+    const dogicaCoin = ref(100) // you can declare new reactive data here
+
+    return {
+      value: '', // <- value comes directly from page.rb!
+      dogicaCoin
+    }
+  }
 }
 </script>
 ```
