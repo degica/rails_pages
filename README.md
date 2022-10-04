@@ -68,8 +68,38 @@ export default {
 When the page is loaded, the `data` block from `page.rb` is sent to `page.vue` automatically.
 
 ### Page actions
+Rails pages supports by default `GET` and `POST` requests. The following is an example of how you could do it:
 
-TODO: cover `import { get, post } from 'rails-pages'` and also the page.rb part
+```
+# app/pages/my_page/page.rb
+
+post 'convert' do # you can use post/get HTTP requests like this
+  if params[:value] > 9000
+    render json: {
+      message: 'Successfully converted DogicaCoin!'
+    }
+  else
+    render json: {
+      error: 'Insufficient DogicaCoin :sad'
+    }
+  end
+end
+```
+
+```
+# app/pages/my_page/page.vue
+import { post } from 'rails-pages'
+
+async convert(value) {
+  const result = await post('convert', { value: value });
+
+  if (result.error) {
+    this.$toast.error(result.error);
+  } else {
+    this.$toast.success(result.message);
+  }
+}
+```
 
 ### Advanced page usage
 
