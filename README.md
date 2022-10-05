@@ -30,7 +30,7 @@ The page's definition exists inside of `page_name/page.rb`.
 ```ruby
 # app/pages/my_page/page.rb
 Page.define '/actual/url/path/here' do
-  authorize { true } # <- always required
+  authorize { true } # <- an "authorize" block must always be provided but the authorization itself can be done on the pages/page controller
 
   data do
     { value: 'hello!' } # <- can use in page.vue
@@ -46,11 +46,21 @@ The frontend portion is just a regular VueJS component.
 <!-- pages/my_page/page.vue -->
 <template>
   <h1>{{ value }}</h1>
+  <p>{{ dogicaCoin }}</p>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
-  data() { return { value: '' } } // <- comes directly from page.rb!
+  data() {
+    const dogicaCoin = ref(100) // you can declare new reactive data here
+
+    return {
+      value: '', // <- value comes directly from page.rb!
+      dogicaCoin
+    }
+  }
 }
 </script>
 ```
@@ -58,8 +68,39 @@ export default {
 When the page is loaded, the `data` block from `page.rb` is sent to `page.vue` automatically.
 
 ### Page actions
+Rails pages supports by default `GET` and `POST` requests. The following is an example of how you could do it:
 
-TODO: cover `import { get, post } from 'rails-pages'` and also the page.rb part
+```ruby
+# app/pages/my_page/page.rb
+
+post 'convert' do # you can use post/get HTTP requests like this
+  if params[:value] > 9000
+    render json: {
+      message: 'Successfully converted DogicaCoin!'
+    }
+  else
+    render json: {
+      error: 'Insufficient DogicaCoin :sad'
+    }
+  end
+end
+```
+
+```javascript
+// app/pages/my_page/page.vue
+
+import { post } from 'rails-pages'
+
+async convert(value) {
+  const result = await post('convert', { value: value });
+
+  if (result.error) {
+    this.$toast.error(result.error);
+  } else {
+    this.$toast.success(result.message);
+  }
+}
+```
 
 ### Advanced page usage
 
