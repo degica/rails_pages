@@ -70,7 +70,7 @@ When the page is loaded, the `data` block from `page.rb` is sent to `page.vue` a
 ### Page actions
 Rails pages supports by default `GET` and `POST` requests. The following is an example of how you could do it:
 
-```
+```ruby
 # app/pages/my_page/page.rb
 
 post 'convert' do # you can use post/get HTTP requests like this
@@ -86,8 +86,9 @@ post 'convert' do # you can use post/get HTTP requests like this
 end
 ```
 
-```
-# app/pages/my_page/page.vue
+```javascript
+// app/pages/my_page/page.vue
+
 import { post } from 'rails-pages'
 
 async convert(value) {
