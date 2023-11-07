@@ -117,20 +117,16 @@ export async function post(
   params: Object
 ): Promise<Object> {
   // Rails generates meta tags with anti-CSRF information.
+  // These tags may not exist when CSRF is disabled.
   const csrfParamMeta = document.getElementsByName('csrf-param')[0];
   const csrfTokenMeta = document.getElementsByName('csrf-token')[0];
 
-  if (!(csrfParamMeta instanceof HTMLMetaElement)) {
-    console.error(csrfParamMeta);
-    throw 'CSRF param unspecified';
+  if ((csrfParamMeta instanceof HTMLMetaElement) && (csrfTokenMeta instanceof HTMLMetaElement)) {
+    // Add the anti-CSRF token to our query.
+    params[csrfParamMeta.content] = csrfTokenMeta.content;
+  } else {
+    console.warn('CSRF token meta tags not found');
   }
-  if (!(csrfTokenMeta instanceof HTMLMetaElement)) {
-    console.error(csrfTokenMeta);
-    throw 'CSRF param unspecified';
-  }
-
-  // Add the anti-CSRF token to our query.
-  params[csrfParamMeta.content] = csrfTokenMeta.content;
 
   // Make a POST to the action endpoint with the query as JSON.
   const response = await fetch(`${location.pathname}/action/${action}`, {
